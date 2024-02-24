@@ -1,0 +1,66 @@
+<!-- <div class="col-12">
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> Chargement... </p>
+  </ngx-spinner>
+  <div class="card">
+
+    <div class="card-body">
+      <h5 class="card-title">Rendez vous récentes <span>| Aujourd'hui</span></h5>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Service</th>
+            <th scope="col">Date & Heur</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of rendezVous">
+            <td style="width: 20%!important;">
+              <a><img class="img-fluid w-75" src="{{environments.url_image}}service/{{ item.Service.image[0].name }}"
+                  alt=""></a>
+            </td>
+            <td class="w-25">
+              <a class="text-primary fw-bold">{{ item.Service.name }}</a>
+              <p>{{ item.Service.description }}</p>
+            </td>
+            <td class="fw-bold">{{ item.dateTime | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ item.Service.prix }} AR</td>
+            <td><span class="badge bg-{{ item.etat[0].color }}">{{ item.etat[0].name }}</span></td>
+            <td>
+              <button type="button" class="btn btn-outline-success m-2"
+                (click)="validerRendezVous(item._id)">Valider</button>
+              <button type="button" class="btn btn-outline-danger m-2" (click)="showDialog(item._id)">Refuser</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>
+
+<p-dialog header="Refuser" [(visible)]="visible" [style]="{width: '50vw'}">
+  <div class="card-body">
+    <h5 class="card-title">Raison</h5>
+    <div class="col-12">
+      <div class="form-floating">
+        <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;"
+          [(ngModel)]="raisonRefuValue"></textarea>
+        <label for="floatingTextarea">Text</label>
+      </div>
+    </div>
+
+    <div class="text-center mt-3">
+      <button type="submit" class="btn btn-primary mx-2" (click)="confirme()">Confirmer</button>
+      <button type="reset" class="btn btn-secondary mx-2" (click)="annuler()">Annuler</button>
+    </div>
+
+  </div>
+</p-dialog>
+
+<p-toast></p-toast> -->
