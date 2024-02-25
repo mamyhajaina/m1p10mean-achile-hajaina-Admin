@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-general',
   templateUrl: './general.component.html',
-  styleUrls: ['./assets/assetsHome/css/style.css'],
+  styleUrls: ['./general.component.css'],
 })
 export class GeneralComponent implements OnInit {
   currentUrl: string;
@@ -12,5 +12,5 @@ export class GeneralComponent implements OnInit {
   constructor(private router: Router) {
     this.currentUrl = this.router.url;
   }
-  ngOnInit() {}
+  ngOnInit() { }
 }
