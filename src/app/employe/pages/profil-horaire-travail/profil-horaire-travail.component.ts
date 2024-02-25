@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { ProfileHoraireTravailService } from '../../services/ProfileHoraireTravail.service';
 import { User } from '../../models/User';
 import { HoraireTravail } from '../../models/HoraireTravail';
+import { PrimeIcons } from 'primeng/api';
 
 @Component({
   selector: 'app-profil-horaire-travail',
@@ -14,12 +15,19 @@ export class ProfilHoraireTravailComponent implements OnInit {
   solde: any;
   idUser: any;
   environments = environment;
+  horaireTravail: any[] = [];
 
   constructor(
     private profilHoraireTravailService: ProfileHoraireTravailService
   ) { }
 
   ngOnInit() {
+    this.horaireTravail = [
+      { status: 'Ordered', date: '15/10/2020 10:30', icon: '', color: '#9698f5', image: 'game-controller.jpg' },
+      { status: 'Processing', date: '15/10/2020 14:00', icon: '', color: '#9698f5' },
+      { status: 'Delivered', date: '16/10/2020 10:00', icon: PrimeIcons.CHECK, color: '#22c55e' },
+      { status: 'Shipped', date: '15/10/2020 16:15', icon: '', color: '#67c589' }
+    ];
     this.idUser = localStorage.getItem('id');
     const emploisString = localStorage.getItem('emplois');
     const salaireString = localStorage.getItem('salaire');

@@ -10,7 +10,9 @@ import { LayoutService } from '../general/service/app.layout.service';
   templateUrl: './employe.component.html',
   styleUrls: ['./employe.component.css']
 })
-export class EmployeComponent {
+export class EmployeComponent implements OnInit {
+
+  employe: any = {};
 
   overlayMenuOpenSubscription: Subscription;
 
@@ -56,6 +58,17 @@ export class EmployeComponent {
         this.hideMenu();
         this.hideProfileMenu();
       });
+  }
+
+  ngOnInit() {
+    this.employe.token = localStorage.getItem('token');
+    this.employe.role = localStorage.getItem('role');
+    console.log('ngOnInit', this.employe);
+
+    console.log('employe', this.employe.token != '' && this.employe.role != 'Emploie');
+    if (this.employe.token != '' && this.employe.role != 'Emploie') {
+      this.router.navigate(['/auth']);
+    }
   }
 
   hideMenu() {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { LayoutService } from '../../service/app.layout.service';
 
 @Component({
@@ -7,6 +7,7 @@ import { LayoutService } from '../../service/app.layout.service';
   styleUrls: ['./sideBar.component.css']
 })
 export class SideBarComponent {
+  @Input() typeMenu?: string = '';
 
   constructor(public layoutService: LayoutService, public el: ElementRef) { }
 
