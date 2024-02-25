@@ -1,86 +1,91 @@
-<section class="section profile">
-  <div class="row">
-    <div class="col-xl-4">
+<div class="grid">
+  <div class="col-12 md:col-4">
 
-      <div class="card">
-        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-          <img src="{{ environments.url_image }}{{ profile.image }}" alt="Profile" class="rounded-circle">
-          <h2>{{ profile.username }}</h2>
-          <div class="social-links mt-2">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+  </div>
+  <div class="col-12 md:col-8">
+    <div class="card">
+      <h5>TabView</h5>
+      <p-tabView orientation="left">
+        <p-tabPanel header="Aperçu" class="line-height-3 m-0">
+          <div class="surface-section">
+            <div class="font-medium text-3xl text-900 mb-3">Détails du profil</div>
+            <ul class="list-none p-0 m-0">
+              <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+                <div class="text-500 w-6 md:w-2 font-medium">Nom et prénom</div>
+                <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{{ profile.username }}</div>
+                <div class="w-6 md:w-2 flex justify-content-end">
+                  <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                </div>
+              </li>
+              <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+                <div class="text-500 w-6 md:w-2 font-medium">Emploi</div>
+                <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1" *ngFor="let item of profile.emplois">
+                  <p-chip label="{{ item.nom }}" class="mr-2"></p-chip>
+                </div>
+                <div class="w-6 md:w-2 flex justify-content-end">
+                  <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                </div>
+              </li>
+              <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+                <div class="text-500 w-6 md:w-2 font-medium">Pays</div>
+                <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{{ profile.pays }}</div>
+                <div class="w-6 md:w-2 flex justify-content-end">
+                  <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                </div>
+              </li>
+              <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+                <div class="text-500 w-6 md:w-2 font-medium">Adresse</div>
+                <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{{ profile.adresse }}</div>
+                <div class="w-6 md:w-2 flex justify-content-end">
+                  <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                </div>
+              </li>
+              <li class="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 surface-border flex-wrap">
+                <div class="text-500 w-6 md:w-2 font-medium">Téléphone</div>
+                <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">+261 {{ profile.phone }}
+                </div>
+                <div class="w-6 md:w-2 flex justify-content-end">
+                  <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                </div>
+              </li>
+              <li class="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 surface-border flex-wrap">
+                <div class="text-500 w-6 md:w-2 font-medium">E-mail</div>
+                <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">{{ profile.email }}</div>
+                <div class="w-6 md:w-2 flex justify-content-end">
+                  <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                </div>
+              </li>
+              <li class="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 surface-border flex-wrap">
+                <div class="text-500 w-6 md:w-2 font-medium">Solde</div>
+                <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">{{ ( profile.solde ?
+                  profile.solde : 0) }} Ar</div>
+                <div class="w-6 md:w-2 flex justify-content-end">
+                  <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                </div>
+              </li>
+            </ul>
           </div>
-        </div>
-      </div>
+        </p-tabPanel>
+        <p-tabPanel header="Horaire de travail" class="line-height-3 m-0">
+          <div class="col-12">
+            <div class="mx-auto my-5">
+              <p-timeline [value]="horaireTravail">
+                <ng-template pTemplate="marker" let-horaireT>
+                  <span
+                    class="flex z-1 w-2rem h-2rem align-items-center justify-content-center text-white border-circle shadow-2"
+                    [style.backgroundColor]="horaireT.color">
+                    <i [ngClass]="horaireT.icon"></i>
+                  </span>
 
-    </div>
-
-    <div class="col-xl-8">
-
-      <div class="card">
-        <div class="card-body pt-3">
-          <!-- Bordered Tabs -->
-          <p-tabView>
-            <p-tabPanel header="Aperçu">
-              <div class="tab-pane fade show active profile-overview">
-                <!-- <h5 class="card-title">À propos</h5>
-                <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus.
-                  Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet
-                  perspiciatis odit. Fuga sequi sed ea saepe at unde.</p> -->
-
-                <h5 class="card-title">Détails du profil</h5>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label ">Nom et prénom</div>
-                  <div class="col-lg-9 col-md-8">{{ profile.username }}</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Emploi</div>
-                  <div class="col-lg-9 col-md-8">
-                    <ul>
-                      <li *ngFor="let item of profile.emplois">{{ item.nom }}</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Pays</div>
-                  <div class="col-lg-9 col-md-8">{{ profile.pays }}</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Adresse</div>
-                  <div class="col-lg-9 col-md-8">{{ profile.adresse }}</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Téléphone</div>
-                  <div class="col-lg-9 col-md-8">+261 {{ profile.phone }}</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">E-mail</div>
-                  <div class="col-lg-9 col-md-8">{{ profile.email }}</div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Solde</div>
-                  <div class="col-lg-9 col-md-8">{{ ( profile.solde ? profile.solde : 0) }} Ar</div>
-                </div>
-
-              </div>
-            </p-tabPanel>
-            <p-tabPanel header="Horaire de travail">
-              <app-horaire-travail></app-horaire-travail>
-            </p-tabPanel>
-          </p-tabView>
-        </div>
-      </div>
-
+                </ng-template>
+                <ng-template pTemplate="opposite" let-horaireT>
+                  {{horaireT.status}}
+                </ng-template>
+              </p-timeline>
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
     </div>
   </div>
-</section>
+</div>

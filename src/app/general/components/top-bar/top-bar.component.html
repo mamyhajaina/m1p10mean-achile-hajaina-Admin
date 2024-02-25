@@ -2,7 +2,7 @@
   <a class="layout-topbar-logo" routerLink="">
     <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg"
       alt="logo">
-    <span>SAKAI</span>
+    <span>C & É Admin</span>
   </a>
 
   <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
@@ -24,9 +24,10 @@
       <i class="pi pi-user"></i>
       <span>Profile</span>
     </button>
-    <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
+    <button class="p-link layout-topbar-button" pButton (click)="menu.toggle($event)">
       <i class="pi pi-cog"></i>
       <span>Settings</span>
     </button>
+    <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
   </div>
 </div>

@@ -11,7 +11,7 @@ const routes: Routes = [
     component: EmployeComponent,
     children: [
       {
-        path: 'home', // child route path
+        path: 'gestionRendezVous', // child route path
         component: GestionRendezVousComponent, // child route component that the router renders
       },
       {
@@ -24,10 +24,10 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'gestionRendezVous',
         pathMatch: 'full'
       },
-      { path: '**', redirectTo: 'home', pathMatch: 'full' },
+      { path: '**', redirectTo: 'gestionRendezVous', pathMatch: 'full' },
     ],
   },
 ];

@@ -1,13 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from '../../service/app.layout.service';
+import { AuthService } from 'src/app/auth/service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-bar',
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.css']
 })
-export class TopBarComponent {
+export class TopBarComponent implements OnInit {
 
   items!: MenuItem[];
 
@@ -17,6 +19,32 @@ export class TopBarComponent {
 
   @ViewChild('topbarmenu') menu!: ElementRef;
 
-  constructor(public layoutService: LayoutService) { }
+  menuItems: MenuItem[] = [];
+  token: any;
+
+  constructor(
+    public layoutService: LayoutService,
+    private authService: AuthService,
+    public router: Router
+  ) { }
+  ngOnInit(): void {
+    this.token = localStorage.getItem('token');
+    this.menuItems = [
+      {
+        separator: true
+      },
+      {
+        label: 'Se deconnecter', icon: 'pi pi-power-off',
+        command: () => this.logout()
+      },
+    ];
+  }
+
+  logout() {
+    this.authService.logout(this.token).subscribe((message) => {
+      this.router.navigate(['/auth']);
+    });
+  }
+
 
 }

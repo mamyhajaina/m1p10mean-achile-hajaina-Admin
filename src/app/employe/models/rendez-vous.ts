@@ -1,3 +1,8 @@
+interface InventoryStatus {
+    label: string;
+    value: string;
+}
+
 export class RendezVous {
     _id: any;
     User: any;
@@ -5,4 +10,5 @@ export class RendezVous {
     Service: any;
     dateTime: Date = new Date();
     etat: any;
+    inventoryStatus?: InventoryStatus;
 }
