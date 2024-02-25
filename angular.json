@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/sakai-ng",
+                        "outputPath": "dist/m1p10mean-achile-hajaina-Admin",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": [
