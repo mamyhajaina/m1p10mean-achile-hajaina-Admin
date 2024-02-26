@@ -67,4 +67,60 @@ export class RendezVousService {
       httpOptions
     );
   }
+
+  getRendezVousNonEffectuerByIdEmploye(idEmploye: string, token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    return this.http.get(
+      `${environment.BASE_URL}/rendezVous/NonEffectuer/${idEmploye}`,
+      httpOptions
+    );
+  }
+
+  terminerRedezVous(rendezVous: any, token: string): any {
+    let body = rendezVous;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    return this.http.post(
+      `${environment.BASE_URL}/rendezVous/terminer`,
+      body,
+      httpOptions
+    );
+  }
+
+  getRendezVousEffectuerByIdEmploye(idEmploye: string, token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    return this.http.get(
+      `${environment.BASE_URL}/rendezVous/Effectuer/${idEmploye}`,
+      httpOptions
+    );
+  }
+
+  commission(idEmploye: string, dateNow: string, token: string): any {
+    let body = {
+      dateNow: dateNow,
+      idEmploye: idEmploye
+    };
+    console.log('body', body);
+
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     Authorization: `Bearer ${token}`,
+    //   }),
+    // };
+    // return this.http.get(
+    //   `${environment.BASE_URL}/employe/commission`,
+    //   httpOptions
+    // );
+  }
 }

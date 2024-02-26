@@ -25,12 +25,6 @@ export class ProfilHoraireTravailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.horaireTravail = [
-      { status: 'Jeudi 2024', date: '08:00 au 16:00', icon: '', color: '#9698f5', image: 'game-controller.jpg' },
-      { status: 'Jeudi 2024', date: '15/10/2020 14:00', icon: '', color: '#9698f5' },
-      { status: 'Jeudi 2024', date: '16/10/2020 10:00', icon: PrimeIcons.CHECK, color: '#22c55e' },
-      { status: 'Jeudi 2024', date: '15/10/2020 16:15', icon: '', color: '#67c589' }
-    ];
     this.idUser = localStorage.getItem('id');
     const emploisString = localStorage.getItem('emplois');
     const salaireString = localStorage.getItem('salaire');

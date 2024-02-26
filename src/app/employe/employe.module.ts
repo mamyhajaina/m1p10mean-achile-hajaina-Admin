@@ -31,6 +31,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { ChipModule } from 'primeng/chip';
 import { TimelineModule } from 'primeng/timeline';
 import { CardModule } from 'primeng/card';
+import { PickListModule } from 'primeng/picklist';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { CardModule } from 'primeng/card';
     AccordionModule,
     ChipModule,
     TimelineModule,
-    CardModule
+    CardModule,
+    PickListModule
   ],
   providers: [
     ConfirmationService,

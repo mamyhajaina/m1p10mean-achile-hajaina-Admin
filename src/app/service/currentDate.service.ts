@@ -8,8 +8,8 @@ export class CurrentDateService {
 
   constructor(private datePipe: DatePipe) { }
 
-  getCurrentDateFormatted(): string {
+  getCurrentDateFormatted(format: string): string {
     const currentDate = new Date();
-    return this.datePipe.transform(currentDate, 'yyyy-MM-dd HH:mm:ss');
+    return this.datePipe.transform(currentDate, format);
   }
 }
