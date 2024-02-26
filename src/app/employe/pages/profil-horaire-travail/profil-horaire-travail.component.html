@@ -69,17 +69,17 @@
         <p-tabPanel header="Horaire de travail" class="line-height-3 m-0">
           <div class="col-12">
             <div class="mx-auto my-5">
-              <p-timeline [value]="horaireTravail">
-                <ng-template pTemplate="marker" let-horaireT>
+              <p-timeline [value]="horaireTravail" align="alternate" styleClass="customized-timeline">
+                <ng-template pTemplate="marker" let-event>
                   <span
                     class="flex z-1 w-2rem h-2rem align-items-center justify-content-center text-white border-circle shadow-2"
-                    [style.backgroundColor]="horaireT.color">
-                    <i [ngClass]="horaireT.icon"></i>
+                    [style.backgroundColor]="event.color">
+                    <i [ngClass]="event.icon"></i>
                   </span>
-
                 </ng-template>
-                <ng-template pTemplate="opposite" let-horaireT>
-                  {{horaireT.status}}
+                <ng-template pTemplate="content" let-event>
+                  <p-card [header]="event.status" [subheader]="event.date">
+                  </p-card>
                 </ng-template>
               </p-timeline>
             </div>

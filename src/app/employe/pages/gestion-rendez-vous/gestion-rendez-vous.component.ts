@@ -72,8 +72,6 @@ export class GestionRendezVousComponent implements OnInit {
 
     this.token = localStorage.getItem('token');
     this.idEmploye = localStorage.getItem('id') || '';
-    console.log(this.token, 'token');
-    console.log(this.idEmploye, 'this.idEmploye');
 
     this.customerService.getCustomersLarge().then(customers => {
       this.customers1 = customers;
@@ -84,7 +82,6 @@ export class GestionRendezVousComponent implements OnInit {
     });
     this.getRendezVousByIdEmploye();
     this.productService.getProductsWithOrdersSmall().then(data => this.products = data);
-    console.log('this.products', this.products);
 
 
     this.representatives = [
@@ -114,9 +111,7 @@ export class GestionRendezVousComponent implements OnInit {
     this.skeleton = false;
     this.rendezVousService.getRendezVousByIdEmploye(this.idEmploye, this.token).subscribe(
       (res: any) => {
-        console.log('res', res);
         this.rendezVous = res;
-        console.log('rendezVous', this.rendezVous);
         this.skeleton = true;
       },
       (error: any) => {
@@ -131,10 +126,8 @@ export class GestionRendezVousComponent implements OnInit {
   validerRendezVous() {
 
     this.skeleton = false;
-    console.log('this.idRendezVous', this.idRendezVous);
     this.rendezVousService.validerRendezVous(this.idRendezVous, this.idEmploye, this.token).subscribe(
       (res: any) => {
-        console.log('res', res);
         this.skeleton = true;
         this.messageService.add({ severity: 'success', summary: 'Valider', detail: 'Rendez vous valider' });
         this.getRendezVousByIdEmploye();
@@ -152,7 +145,6 @@ export class GestionRendezVousComponent implements OnInit {
     this.skeleton = false;
     this.rendezVousService.refuserRendezVous(idRendezVous, this.idEmploye, raison, this.token).subscribe(
       (res: any) => {
-        console.log('res', res);
         this.skeleton = true;
         this.messageService.add({ severity: 'warn', summary: 'Annuler', detail: 'Rendez-vous annuler' });
         this.getRendezVousByIdEmploye();

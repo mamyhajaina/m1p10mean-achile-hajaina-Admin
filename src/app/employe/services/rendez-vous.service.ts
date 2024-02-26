@@ -55,7 +55,6 @@ export class RendezVousService {
       idEmploye: idEmploye,
       raison: raison
     }
-    console.log('body', body);
 
     const httpOptions = {
       headers: new HttpHeaders({

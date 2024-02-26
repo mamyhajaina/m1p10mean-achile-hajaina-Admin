@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,12 +9,28 @@ export class ProfileHoraireTravailService {
 
   constructor(private http: HttpClient) { }
 
-  getSolde(idUser: string): any {
-    return this.http.get(`${environment.BASE_URL}/porteFeuille/solde/${idUser}`);
+  getSolde(idUser: string, token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    return this.http.get(
+      `${environment.BASE_URL}/porteFeuille/solde/${idUser}`,
+      httpOptions
+    );
   }
 
-  getHoraireTravail(idUser: string): any {
-    return this.http.get(`${environment.BASE_URL}/horaireTravail/list/user/${idUser}`);
+  getHoraireTravail(idUser: string, token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+    return this.http.get(
+      `${environment.BASE_URL}/horaireTravail/list/user/${idUser}`,
+      httpOptions
+    );
   }
 
 }

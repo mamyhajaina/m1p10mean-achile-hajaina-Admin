@@ -34,7 +34,6 @@ export class MenuComponent implements OnInit {
         { label: 'Manager', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
       ]
     };
-    console.log(this.typeMenu, 'tyepe');
 
     if (this.typeMenu == 'employe') {
       data = menuEmployeur;
@@ -45,7 +44,6 @@ export class MenuComponent implements OnInit {
     this.model = [
       data
     ];
-    console.log('model', this.model);
 
   }
 }

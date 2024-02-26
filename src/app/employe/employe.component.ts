@@ -63,9 +63,6 @@ export class EmployeComponent implements OnInit {
   ngOnInit() {
     this.employe.token = localStorage.getItem('token');
     this.employe.role = localStorage.getItem('role');
-    console.log('ngOnInit', this.employe);
-
-    console.log('employe', this.employe.token != '' && this.employe.role != 'Emploie');
     if (this.employe.token != '' && this.employe.role != 'Emploie') {
       this.router.navigate(['/auth']);
     }
