@@ -106,20 +106,14 @@ export class RendezVousService {
     );
   }
 
-  commission(idEmploye: string, dateNow: string, token: string): any {
-    let body = {
-      dateNow: dateNow,
-      idEmploye: idEmploye
-    };
-    console.log('body', body);
+  commission(idEmploye: string, token: string): any {
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`
       })
     };
-    return this.http.post(
-      `${environment.BASE_URL}/employe/commission`,
-      body,
+    return this.http.get(
+      `${environment.BASE_URL}/employe/commission/${idEmploye}`,
       httpOptions
     );
   }
