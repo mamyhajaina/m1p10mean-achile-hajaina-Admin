@@ -31,7 +31,7 @@ export class MenuComponent implements OnInit {
     const menuManager = {
       label: 'Manager',
       items: [
-        { label: 'Manager', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
+        { label: 'Gestion Personnel', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
       ]
     };
 

@@ -112,15 +112,15 @@ export class RendezVousService {
       idEmploye: idEmploye
     };
     console.log('body', body);
-
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     Authorization: `Bearer ${token}`,
-    //   }),
-    // };
-    // return this.http.get(
-    //   `${environment.BASE_URL}/employe/commission`,
-    //   httpOptions
-    // );
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+    return this.http.post(
+      `${environment.BASE_URL}/employe/commission`,
+      body,
+      httpOptions
+    );
   }
 }

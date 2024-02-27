@@ -3,6 +3,7 @@ import { ManagerComponent } from './manager.component';
 import { GestionPersonnelComponent } from './pages/gestion-personnel/gestion-personnel.component';
 import { GestionServicesComponent } from './pages/gestion-services/gestion-services.component';
 import { StatistiqueComponent } from './pages/statistique/statistique.component';
+import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   {
@@ -31,4 +32,8 @@ const routes: Routes = [
   },
 ];
 
-export const ManagerRoutes = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ManagerRoutes { }
