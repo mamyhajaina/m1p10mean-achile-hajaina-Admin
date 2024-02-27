@@ -1,81 +1,77 @@
-<section class="section dashboard">
-
-  <div class="row">
-    <div class="col-xxl-4 col-md-6">
-      <div class="card info-card revenue-card">
-
-        <div class="card-body">
-          <h5 class="card-title">Commission <span>| Jour</span></h5>
-
-          <div class="d-flex align-items-center">
-            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-              <i class="bi bi-percent"></i>
+<div class="grid">
+  <div class="col-12 md:col-12">
+    <div class="card">
+      <h5>Tache</h5>
+      <p-pickList [source]="tacheIncomplet" [target]="tacheComplet" sourceHeader="Non effectuer"
+        targetHeader="Tache effectuer" [dragdrop]="true" [responsive]="true" [sourceStyle]="{'height':'400px'}"
+        [targetStyle]="{'height':'400px'}">
+        <ng-template let-tache pTemplate="listItem">
+          <div class="border-round m-2 text-center p-2" style="border: 1px solid var(--surface-d)">
+            <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+              <div class="flex align-items-center">
+                <i class="pi pi-clock mr-2"></i>
+                <span class="font-semibold">{{tache.dure}} min</span>
+              </div>
+              <!-- <span class="product-badge status-instock">INSTOCK</span> -->
             </div>
-            <div class="ps-3">
-              <h6>10%</h6>
+            <div class="my-5">
+              <img src="{{environments.url_image}}service/{{tache.image}}" alt="Bamboo Watch" class="shadow-4"
+                width="15%" />
+            </div>
+            <div>
+              <div class="text-2xl font-bold">{{tache.name}}</div>
+              <span class="text-2xl font-semibold">{{tache.prix | currency:'USD'}}</span>
             </div>
           </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="col-lg-8">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Recent Activity <span>| Today</span></h5>
-          <div class="activity">
-            <div class="activity-item d-flex">
-              <div class="activite-label">32 min</div>
-              <i class="bi bi-circle-fill activity-badge text-success align-self-start"></i>
-              <div class="activity-content">
-                Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-              </div>
-            </div><!-- End activity item-->
-            <div class="activity-item d-flex">
-              <div class="activite-label">56 min</div>
-              <i class="bi bi-circle-fill activity-badge text-danger align-self-start"></i>
-              <div class="activity-content">
-                Voluptatem blanditiis blanditiis eveniet
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">2 hrs</div>
-              <i class="bi bi-circle-fill activity-badge text-primary align-self-start"></i>
-              <div class="activity-content">
-                Voluptates corrupti molestias voluptatem
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">1 day</div>
-              <i class="bi bi-circle-fill activity-badge text-info align-self-start"></i>
-              <div class="activity-content">
-                Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">2 days</div>
-              <i class="bi bi-circle-fill activity-badge text-warning align-self-start"></i>
-              <div class="activity-content">
-                Est sit eum reiciendis exercitationem
-              </div>
-            </div><!-- End activity item-->
-
-            <div class="activity-item d-flex">
-              <div class="activite-label">4 weeks</div>
-              <i class="bi bi-circle-fill activity-badge text-muted align-self-start"></i>
-              <div class="activity-content">
-                Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-              </div>
-            </div><!-- End activity item-->
-
-          </div>
-
-        </div>
-      </div>
-
+        </ng-template>
+      </p-pickList>
+      <button *ngIf="tacheComplet.length>0" (click)="terminerTache()" style="width: 100%;" pbutton="" pripple=""
+        label="Submit" icon="pi pi-bookmark" class="p-element p-ripple p-button p-button-success p-component mt-4">
+        <span class="p-button-label">Valider les taches effectués</span>
+      </button>
     </div>
   </div>
-</section>
+</div>
+
+<div class="grid">
+  <div class="col-12 md:col-8">
+    <div class="card">
+      <h5>Tache effectuer</h5>
+      <p-table [value]="tacheEffectuer" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Image</th>
+            <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="price">Prix <p-sortIcon field="price"></p-sortIcon></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-tacheEFT>
+          <tr>
+            <td style="width: 15%; min-width: 5rem;">
+              <img src="{{environments.url_image}}service/{{tacheEFT.image}}" class="shadow-4" alt="{{tacheEFT.name}}"
+                width="50">
+            </td>
+            <td style="width: 35%; min-width: 7rem;">{{tacheEFT.name}}</td>
+            <td style="width: 35%; min-width: 8rem;">{{tacheEFT.prix | currency:'USD'}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="col-12 md:col-4">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3">Revenue</span>
+          <div class="text-900 font-medium text-xl">$2.100</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
+          [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+          <i class="pi pi-dollar text-orange-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-green-500 font-medium">%52+ </span>
+      <span class="text-500">since last week</span>
+    </div>
+  </div>
+</div>

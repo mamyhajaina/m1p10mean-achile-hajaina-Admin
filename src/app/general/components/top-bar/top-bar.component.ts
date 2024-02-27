@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { LayoutService } from '../../service/app.layout.service';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-top-bar',
@@ -21,6 +22,7 @@ export class TopBarComponent implements OnInit {
 
   menuItems: MenuItem[] = [];
   token: any;
+  environments: any;
 
   constructor(
     public layoutService: LayoutService,
@@ -28,6 +30,7 @@ export class TopBarComponent implements OnInit {
     public router: Router
   ) { }
   ngOnInit(): void {
+    this.environments = environment;
     this.token = localStorage.getItem('token');
     this.menuItems = [
       {

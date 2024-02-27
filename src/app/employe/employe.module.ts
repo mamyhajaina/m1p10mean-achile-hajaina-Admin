@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { EmployeComponent } from './employe.component';
 import { EmployeRoutes } from './employe.routing.module';
 import { TabViewModule } from 'primeng/tabview';
 import { ProfilHoraireTravailComponent } from './pages/profil-horaire-travail/profil-horaire-travail.component';
 import { GestionTachesComponent } from './pages/gestion-taches/gestion-taches.component';
 import { GestionRendezVousComponent } from './pages/gestion-rendez-vous/gestion-rendez-vous.component';
-import { HoraireTravailComponent } from './components/horaire-travail/horaire-travail.component';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -31,6 +30,8 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { AccordionModule } from 'primeng/accordion';
 import { ChipModule } from 'primeng/chip';
 import { TimelineModule } from 'primeng/timeline';
+import { CardModule } from 'primeng/card';
+import { PickListModule } from 'primeng/picklist';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,6 @@ import { TimelineModule } from 'primeng/timeline';
     ProfilHoraireTravailComponent,
     GestionTachesComponent,
     GestionRendezVousComponent,
-    HoraireTravailComponent,
     SkeletonTabComponent
   ],
   imports: [
@@ -64,12 +64,15 @@ import { TimelineModule } from 'primeng/timeline';
     SkeletonModule,
     AccordionModule,
     ChipModule,
-    TimelineModule
+    TimelineModule,
+    CardModule,
+    PickListModule
   ],
   providers: [
     ConfirmationService,
     CustomerService,
-    ProductService
+    ProductService,
+    DatePipe
   ]
 })
 export class EmployeModule { }
