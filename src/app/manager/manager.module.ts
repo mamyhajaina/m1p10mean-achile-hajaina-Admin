@@ -9,12 +9,77 @@ import { StatNombreReservationComponent } from './pages/stat-nombre-reservation/
 import { StatTempsMoyenTravailComponent } from './pages/stat-temps-moyen-travail/stat-temps-moyen-travail.component';
 import { StatChifreAffaireComponent } from './pages/stat-chifre-affaire/stat-chifre-affaire.component';
 import { StatBeneficeComponent } from './pages/stat-benefice/stat-benefice.component';
+import { ChartModule } from 'primeng/chart';
+import { InputMaskModule } from 'primeng/inputmask';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CalendarModule } from "primeng/calendar";
+import { ChipsModule } from "primeng/chips";
+import { ChipModule } from "primeng/chip";
+import { DropdownModule } from "primeng/dropdown";
+import { InputNumberModule } from "primeng/inputnumber";
+import { CascadeSelectModule } from "primeng/cascadeselect";
+import { MultiSelectModule } from "primeng/multiselect";
+import { InputTextareaModule } from "primeng/inputtextarea";
+import { InputTextModule } from "primeng/inputtext";
+import { RatingModule } from 'primeng/rating';
+import { KnobModule } from 'primeng/knob';
+import { ListboxModule } from 'primeng/listbox';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ButtonModule } from 'primeng/button';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { SliderModule } from 'primeng/slider';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { FileUploadModule } from 'primeng/fileupload';
+import { RippleModule } from 'primeng/ripple';
+import { ToolbarModule } from 'primeng/toolbar';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   imports: [
     CommonModule,
     ManagerRoutes,
-    GeneralModule
+    GeneralModule,
+    InputMaskModule,
+    AutoCompleteModule,
+    CalendarModule,
+    ChipsModule,
+    DropdownModule,
+    InputNumberModule,
+    ColorPickerModule,
+    CascadeSelectModule,
+    MultiSelectModule,
+    ToggleButtonModule,
+    SliderModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    InputTextModule,
+    RatingModule,
+    ChipModule,
+    KnobModule,
+    InputSwitchModule,
+    ListboxModule,
+    SelectButtonModule,
+    CheckboxModule,
+    ButtonModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    ChartModule,
+    FormsModule,
+    TableModule,
+    ToastModule,
+    TableModule,
+    FileUploadModule,
+    RippleModule,
+    ToolbarModule,
+    DialogModule
   ],
   declarations: [
     ManagerComponent,
@@ -23,7 +88,7 @@ import { StatBeneficeComponent } from './pages/stat-benefice/stat-benefice.compo
     StatNombreReservationComponent,
     StatTempsMoyenTravailComponent,
     StatChifreAffaireComponent,
-    StatBeneficeComponent
+    StatBeneficeComponent,
   ]
 })
 export class ManagerModule { }
