@@ -1,3 +1,8 @@
-<p>
-  stat-nombre-reservation works!
-</p>
+<div class="grid p-fluid">
+  <div class="col-12 lg:col-12">
+    <div class="card">
+      <h5>Nombre de réservation par jour par mois</h5>
+      <p-chart type="bar" [data]="barDataJourMois" [options]="barOptionsJour"></p-chart>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,106 @@
-<p>
-  gestion-services works!
-</p>
+<div class="grid p-fluid">
+  <div class="col-12 md:col-12">
+    <div class="card">
+      <h5>Nom Service*</h5>
+      <input type="text" pInputText placeholder="Default">
+
+      <h5>Description</h5>
+      <textarea rows="5" cols="30" placeholder="Your Message" pInputTextarea></textarea>
+
+      <h5>Categorie</h5>
+      <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries"
+        (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
+      </p-autoComplete>
+
+      <h5>Prix*</h5>
+      <p-inputNumber mode="decimal" [showButtons]="true" [min]="0">
+      </p-inputNumber>
+
+      <h5>Dure en minute*</h5>
+      <p-inputNumber mode="decimal" [showButtons]="true" [min]="0">
+      </p-inputNumber>
+
+      <h5>Commission en %*</h5>
+      <p-inputNumber mode="decimal" [showButtons]="true" [min]="0">
+      </p-inputNumber>
+
+      <button style="width: 100%;" pbutton="" pripple="" label="Submit" icon="pi pi-bookmark"
+        class="p-element p-ripple p-button p-button-success p-component mt-4">
+        <span class="p-button-label">Valider</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="card">
+      <h5>Liste Service avec categorie</h5>
+      <p-toast></p-toast>
+      <p-table [value]="products" dataKey="name" [expandedRowKeys]="expandedRows" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem"></th>
+            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+            <th>Image</th>
+            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+            <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
+            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-expanded="expanded">
+          <tr>
+            <td>
+              <button type="button" pButton pRipple [pRowToggler]="product"
+                class="p-button-text p-button-rounded p-button-plain"
+                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            </td>
+            <td style="min-width: 12rem;">{{product.name}}</td>
+            <td><img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100"
+                class="shadow-4" /></td>
+            <td style="min-width: 8rem;">{{product.price | currency:'USD'}}</td>
+            <td style="min-width: 10rem;">{{product.category}}</td>
+            <td style="min-width: 10rem;"><p-rating [ngModel]="product.rating" [readonly]="true"
+                [cancel]="false"></p-rating></td>
+            <td><span
+                [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-product>
+          <tr>
+            <td colspan="7">
+              <div class="p-3">
+                <p-table [value]="product.orders" dataKey="id" responsiveLayout="scroll">
+                  <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
+            <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
+            <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+            <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
+            <th pSortableColumn="stats">Status <p-sortIcon field="status"></p-sortIcon></th>
+            <th style="width: 4rem"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order>
+          <tr>
+            <td>{{order.id}}</td>
+            <td>{{order.customer}}</td>
+            <td>{{order.date}}</td>
+            <td>{{order.amount | currency:'USD'}}</td>
+            <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
+            <td><p-button type="button" icon="pi pi-search"></p-button></td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6">There are no order for this product yet.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    </td>
+    </tr>
+    </ng-template>
+    </p-table>
+  </div>
+</div>
