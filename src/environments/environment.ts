@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   BASE_URL: 'https://charmeeclatservice.onrender.com',
+  // BASE_URL: 'http://192.168.88.127:1200',
   url_image: '/assets/img/',
 };
 

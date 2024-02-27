@@ -20,7 +20,7 @@
             </div>
             <div>
               <div class="text-2xl font-bold">{{tache.name}}</div>
-              <span class="text-2xl font-semibold">{{tache.prix | currency:'USD'}}</span>
+              <span class="text-2xl font-semibold">{{tache.prix | currency:'MGA':'symbol-narrow':'1.0'}}</span>
             </div>
           </div>
         </ng-template>
@@ -34,7 +34,7 @@
 </div>
 
 <div class="grid">
-  <div class="col-12 md:col-8">
+  <div class="col-12 md:col-6">
     <div class="card">
       <h5>Tache effectuer</h5>
       <p-table [value]="tacheEffectuer" [paginator]="true" [rows]="5" responsiveLayout="scroll">
@@ -52,26 +52,36 @@
                 width="50">
             </td>
             <td style="width: 35%; min-width: 7rem;">{{tacheEFT.name}}</td>
-            <td style="width: 35%; min-width: 8rem;">{{tacheEFT.prix | currency:'USD'}}</td>
+            <td style="width: 35%; min-width: 8rem;">{{tacheEFT.prix | currency:'MGA':'symbol-narrow':'1.0'}}</td>
           </tr>
         </ng-template>
       </p-table>
     </div>
   </div>
-  <div class="col-12 md:col-4">
-    <div class="card mb-0">
-      <div class="flex justify-content-between mb-3">
-        <div>
-          <span class="block text-500 font-medium mb-3">Revenue</span>
-          <div class="text-900 font-medium text-xl">$2.100</div>
-        </div>
-        <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
-          [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-          <i class="pi pi-dollar text-orange-500 text-xl"></i>
-        </div>
+  <div class="col-12 md:col-6">
+    <div class="card">
+      <div class="flex align-items-center justify-content-between mb-4">
+        <h5>Notifications</h5>
       </div>
-      <span class="text-green-500 font-medium">%52+ </span>
-      <span class="text-500">since last week</span>
+      <div *ngFor="let item of commission">
+        <span class="block text-600 font-medium mb-3">{{ item.date | date:'EEEE dd MMMM yyyy' }}</span>
+        <ul class="p-0 mx-0 mt-0 mb-4 list-none">
+          <li class="flex align-items-center py-2 border-bottom-1 surface-border">
+            <div
+              class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
+              <i class="pi pi-dollar text-xl text-blue-500"></i>
+            </div>
+            <span class="text-900 line-height-3">Le total de votre service effectuer est <span class="text-blue-500">{{
+                item.totalServiceEffectuer | currency:'MGA':'symbol-narrow':'1.0' }} Ar</span> alors le montant de
+              commission pour la journée
+              est <span class="text-blue-500">{{
+                item.totalMontantCommission | currency:'MGA':'symbol-narrow':'1.0'}}</span> (<span
+                class="text-blue-500">%{{
+                item.totalMontantCommissionPourcentage }}</span>)
+            </span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

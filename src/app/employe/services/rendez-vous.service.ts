@@ -106,21 +106,15 @@ export class RendezVousService {
     );
   }
 
-  commission(idEmploye: string, dateNow: string, token: string): any {
-    let body = {
-      dateNow: dateNow,
-      idEmploye: idEmploye
+  commission(idEmploye: string, token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
     };
-    console.log('body', body);
-
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     Authorization: `Bearer ${token}`,
-    //   }),
-    // };
-    // return this.http.get(
-    //   `${environment.BASE_URL}/employe/commission`,
-    //   httpOptions
-    // );
+    return this.http.get(
+      `${environment.BASE_URL}/employe/commission/${idEmploye}`,
+      httpOptions
+    );
   }
 }

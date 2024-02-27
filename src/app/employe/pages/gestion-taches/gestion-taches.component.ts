@@ -20,6 +20,8 @@ export class GestionTachesComponent implements OnInit {
   rendezVous: any[] = [];
   token: any;
   environments: any;
+  commission: any = [];
+  dateNow: any;
 
 
   constructor(
@@ -29,6 +31,7 @@ export class GestionTachesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.dateNow = this.currendateService.getCurrentDateFormatted('yyyy-MM-dd');
     this.environments = environment;
     this.token = localStorage.getItem('token');
     this.idEmploye = localStorage.getItem('id') || '';
@@ -81,6 +84,7 @@ export class GestionTachesComponent implements OnInit {
         this.tacheComplet = [];
         this.getRendezVousNonEffectuer();
         this.getRendezVousEffectuer();
+        this.getCommission()
         // this.skeleton = true;
       },
       (error: any) => {
@@ -111,9 +115,12 @@ export class GestionTachesComponent implements OnInit {
 
   getCommission() {
     const dateNow = this.currendateService.getCurrentDateFormatted('yyyy-MM-dd');
-    this.rendezVousService.commission(this.idEmploye, dateNow, this.token).subscribe(
+    this.rendezVousService.commission(this.idEmploye, this.token).subscribe(
       (res: any) => {
+        console.log('commission', res);
 
+        this.commission = res;
+        console.log('commission', this.commission);
       },
       (error: any) => {
         console.error(
