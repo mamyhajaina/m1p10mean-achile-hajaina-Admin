@@ -14,10 +14,10 @@
       </p-toolbar>
 
       <p-table #dt [value]="personnels" [columns]="cols" responsiveLayout="scroll" [rows]="10"
-        [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true"
+        [globalFilterFields]="['username','adresse','phone','email','_id']" [paginator]="true"
         [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedProducts"
-        selectionMode="multiple" [rowHover]="true" dataKey="id">
+        selectionMode="multiple" [rowHover]="true" dataKey="_id">
         <ng-template pTemplate="caption">
           <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
             <h5 class="m-0">Liste employe</h5>
@@ -33,11 +33,11 @@
             <th style="width: 3rem">
               <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
-            <th pSortableColumn="code">Nom <p-sortIcon field="code"></p-sortIcon></th>
-            <th pSortableColumn="name">Adresse <p-sortIcon field="name"></p-sortIcon></th>
-            <th pSortableColumn="price">Telephone <p-sortIcon field="price"></p-sortIcon></th>
-            <th pSortableColumn="category">Email <p-sortIcon field="category"></p-sortIcon></th>
-            <th pSortableColumn="rating">Service <p-sortIcon field="rating"></p-sortIcon></th>
+            <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="adresse">Adresse <p-sortIcon field="adresse"></p-sortIcon></th>
+            <th pSortableColumn="Telephone">Telephone <p-sortIcon field="Telephone"></p-sortIcon></th>
+            <th pSortableColumn="Email">Email <p-sortIcon field="Email"></p-sortIcon></th>
+            <th pSortableColumn="Service">Service <p-sortIcon field="Service"></p-sortIcon></th>
             <th></th>
           </tr>
         </ng-template>
@@ -69,7 +69,7 @@
                 <button pButton pRipple icon="pi pi-user-edit" class="p-button-rounded p-button-success mr-2"
                   (click)="editEmploye(personnel._id)"></button>
                 <button pButton pRipple icon="pi pi-user-minus" class="p-button-rounded p-button-warning"
-                  (click)="deleteProduct(product)"></button>
+                  (click)="debaucherDialogue(personnel._id,personnel.username)"></button>
               </div>
             </td>
           </tr>
@@ -112,32 +112,94 @@
 
       <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="hideDialog()"></button>
       </ng-template>
     </p-dialog>
 
     <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
       <div class="flex align-items-center justify-content-center">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-        <span *ngIf="product">Are you sure you want to delete <b>{{product.name}}</b>?</span>
+        <span>Vous ete sure de debaucher <b>{{nameDebaucher}}</b>?</span>
       </div>
       <ng-template pTemplate="footer">
         <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
           (click)="deleteProductDialog = false"></button>
-        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="debaucher()"></button>
       </ng-template>
     </p-dialog>
 
     <p-dialog [(visible)]="deleteProductsDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
       <div class="flex align-items-center justify-content-center">
         <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-        <span>Are you sure you want to delete selected products?</span>
+        <span>Vous ete sure de les debaucher?</span>
       </div>
       <ng-template pTemplate="footer">
         <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
           (click)="deleteProductsDialog = false"></button>
-        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
-          (click)="confirmDeleteSelected()"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="debaucher()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="newPersonnelDialog" [style]="{width: '80%'}" header="Ajouter employe" [modal]="true"
+      class="p-fluid">
+      <ng-template pTemplate="content">
+        <div class="grid p-fluid">
+          <div class="col-0 md:col-2"></div>
+          <div class="col-12 md:col-8">
+            <span class="p-float-label my-6">
+              <input [(ngModel)]="employeModel.username" type="text" pInputText>
+              <label for="float-input">Nom</label>
+            </span>
+
+            <span class="p-float-label my-6">
+              <input [(ngModel)]="employeModel.password" type="text" pInputText>
+              <label for="float-input">Mots de passe</label>
+            </span>
+
+            <span class="p-float-label my-6">
+              <input [(ngModel)]="employeModel.pays" type="text" pInputText>
+              <label for="float-input">Pays</label>
+            </span>
+
+            <span class="p-float-label my-6">
+              <input [(ngModel)]="employeModel.adresse" type="text" pInputText>
+              <label for="float-input">Adresse</label>
+            </span>
+
+            <span class="p-float-label my-6">
+              <input [(ngModel)]="employeModel.email" type="text" pInputText>
+              <label for="float-input">Email</label>
+            </span>
+
+            <span class="p-float-label my-6">
+              <input [(ngModel)]="employeModel.phone" type="text" pInputText>
+              <label for="float-input">Phone</label>
+            </span>
+
+            <h5>Emplois</h5>
+            <p-multiSelect [options]="categories.categories" [(ngModel)]="emplois" placeholder="Select a Country"
+              optionLabel="name" class="multiselect-custom" display="chip">
+              <ng-template let-categorie pTemplate="item">
+                <div class="flex align-items-center">
+                  <img src="{{environments.url_image}}categorie/{{ categorie.image[0].name }}"
+                    [class]="'flag flag-' + categorie._id.toLowerCase()" style="width:21px" />
+                  <span class="ml-2">{{categorie.name}}</span>
+                </div>
+              </ng-template>
+            </p-multiSelect>
+
+            <span class="p-float-label my-6">
+              <p-inputNumber [(ngModel)]="salaire" mode="decimal" [showButtons]="true" [min]="0"></p-inputNumber>
+              <label for="float-input">Salaire</label>
+            </span>
+
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveEmplye()"></button>
       </ng-template>
     </p-dialog>
   </div>
