@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Product } from 'src/app/employe/models/product';
 import { ProductService } from 'src/app/employe/services/product.service';
+import { PersonnelService } from '../../services/personnel.service';
 
 @Component({
   selector: 'app-gestion-personnel',
@@ -30,10 +31,21 @@ export class GestionPersonnelComponent implements OnInit {
   statuses: any[] = [];
 
   rowsPerPageOptions = [5, 10, 20];
+  token: string = '';
+  personnels: any = [];
+  idEmploye: string = '';
+  defaultDate: Date;
 
-  constructor(private productService: ProductService, private messageService: MessageService) { }
+  constructor(
+    private productService: ProductService,
+    private messageService: MessageService,
+    private personnelService: PersonnelService
+  ) {
+    this.defaultDate = new Date();
+  }
 
   ngOnInit() {
+    this.token = localStorage.getItem('token') || '';
     this.productService.getProducts().then(data => this.products = data);
 
     this.cols = [
@@ -49,6 +61,22 @@ export class GestionPersonnelComponent implements OnInit {
       { label: 'LOWSTOCK', value: 'lowstock' },
       { label: 'OUTOFSTOCK', value: 'outofstock' }
     ];
+    this.getAllEmploye();
+  }
+
+  getAllEmploye() {
+    this.personnelService.getAllEmploye(this.token).subscribe(
+      (res: any) => {
+        this.personnels = res;
+        console.log('personnel', this.personnels);
+      },
+      (error: any) => {
+        console.error(
+          "Une erreur s'est produite lors de la récupération des catégories : ",
+          error
+        );
+      }
+    );
   }
 
   openNew() {
@@ -61,8 +89,10 @@ export class GestionPersonnelComponent implements OnInit {
     this.deleteProductsDialog = true;
   }
 
-  editProduct(product: Product) {
-    this.product = { ...product };
+  editEmploye(idEmploye: string) {
+    console.log('idEmploye', idEmploye);
+    this.idEmploye = idEmploye;
+
     this.productDialog = true;
   }
 

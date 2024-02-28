@@ -16,7 +16,6 @@ export class ProfilHoraireTravailComponent implements OnInit {
   solde: any;
   idUser: any;
   environments = environment;
-  horaireTravail: any[] = [];
   token: string = '';
 
   constructor(
@@ -43,28 +42,12 @@ export class ProfilHoraireTravailComponent implements OnInit {
     this.profile.image = localStorage.getItem('image') || '';
     this.token = localStorage.getItem('token') || '';
     this.getSolde();
-    this.getHoraireTravail();
   }
 
   getSolde() {
     this.profilHoraireTravailService.getSolde(this.profile.idUser, this.token).subscribe(
       (res: any) => {
         this.profile.solde = res;
-      },
-      (error: any) => {
-        console.error(
-          "Une erreur s'est produite lors de la récupération des catégories : ",
-          error
-        );
-      }
-    );
-  }
-
-  getHoraireTravail() {
-    this.profilHoraireTravailService.getHoraireTravail(this.profile.idUser, this.token).subscribe(
-      (res: any) => {
-        this.horaireTravail = this.transformToJson(res);
-        // this.profile.solde = res;
       },
       (error: any) => {
         console.error(
@@ -83,11 +66,6 @@ export class ProfilHoraireTravailComponent implements OnInit {
       let result = { status: this.formatDate(dateTimeDebut, 'EEEE MM YYYY'), date: this.formatDate(dateTimeDebut, 'HH:mm') + ' au ' + this.formatDate(dateTimeFin, 'HH:mm'), icon: '', color: '#9698f5', image: 'game-controller.jpg' };
       arrResult.push(result);
     }
-    // arrResult.sort((a, b) => {
-    //   const dateA = moment(a.status, 'dddd MM yyyy');
-    //   const dateB = moment(b.status, 'dddd MM yyyy');
-    //   return dateB.diff(dateA);
-    // });
     return arrResult;
   }
 

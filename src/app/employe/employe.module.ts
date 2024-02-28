@@ -32,6 +32,7 @@ import { ChipModule } from 'primeng/chip';
 import { TimelineModule } from 'primeng/timeline';
 import { CardModule } from 'primeng/card';
 import { PickListModule } from 'primeng/picklist';
+import { HoraireTravailComponent } from './components/horaire-travail/horaire-travail.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PickListModule } from 'primeng/picklist';
     ProfilHoraireTravailComponent,
     GestionTachesComponent,
     GestionRendezVousComponent,
-    SkeletonTabComponent
+    SkeletonTabComponent,
+    HoraireTravailComponent
   ],
   imports: [
     CommonModule,
@@ -73,6 +75,9 @@ import { PickListModule } from 'primeng/picklist';
     CustomerService,
     ProductService,
     DatePipe
+  ],
+  exports: [
+    HoraireTravailComponent
   ]
 })
 export class EmployeModule { }

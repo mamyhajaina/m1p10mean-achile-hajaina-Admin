@@ -41,6 +41,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { RippleModule } from 'primeng/ripple';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
+import { TimelineModule } from 'primeng/timeline';
+import { EmployeModule } from '../employe/employe.module';
 
 @NgModule({
   imports: [
@@ -79,7 +81,9 @@ import { DialogModule } from 'primeng/dialog';
     FileUploadModule,
     RippleModule,
     ToolbarModule,
-    DialogModule
+    DialogModule,
+    TimelineModule,
+    EmployeModule
   ],
   declarations: [
     ManagerComponent,
@@ -88,7 +92,7 @@ import { DialogModule } from 'primeng/dialog';
     StatNombreReservationComponent,
     StatTempsMoyenTravailComponent,
     StatChifreAffaireComponent,
-    StatBeneficeComponent,
+    StatBeneficeComponent
   ]
 })
 export class ManagerModule { }
