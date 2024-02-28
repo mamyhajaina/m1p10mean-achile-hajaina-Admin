@@ -1,8 +1,14 @@
 <div class="grid p-fluid">
-  <div class="col-12 lg:col-12">
+  <div class="col-12 lg:col-6">
     <div class="card">
-      <h5>Chiffre affaire</h5>
-      <p-chart type="bar" [data]="barDataJourMois" [options]="barOptionsJour"></p-chart>
+      <h5>Chiffre affaire par jour</h5>
+      <p-chart type="line" [data]="barDataJour" [options]="barOptionsJour"></p-chart>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6">
+    <div class="card">
+      <h5>Chiffre affaire par mois</h5>
+      <p-chart type="bar" [data]="barDataMois" [options]="barOptionsJour"></p-chart>
     </div>
   </div>
 </div>

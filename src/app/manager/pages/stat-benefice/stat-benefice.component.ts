@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StatistiquesService } from '../../services/statistiques.service';
 
 @Component({
   selector: 'app-stat-benefice',
@@ -11,24 +12,18 @@ export class StatBeneficeComponent implements OnInit {
   filteredCountries: any[] = [];
   countries: any[] = [];
   products!: any[];
-  beneficeMois: any;
+  benefice: any;
   barOptions: any;
+  documentStyle = getComputedStyle(document.documentElement);
+  token: string = '';
 
-  constructor() { }
+  constructor(
+    private statistiqueService: StatistiquesService
+  ) { }
 
   ngOnInit() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    this.beneficeMois = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'Bénéfice',
-          backgroundColor: documentStyle.getPropertyValue('--primary-500'),
-          borderColor: documentStyle.getPropertyValue('--primary-500'),
-          data: [65, 59, 80, 81, 56, 55, 40]
-        }
-      ]
-    };
+    this.token = localStorage.getItem('token') || '';
+    this.getStatistique();
   }
 
   filterCountry(event: any) {
@@ -42,6 +37,56 @@ export class StatBeneficeComponent implements OnInit {
     }
 
     this.filteredCountries = filtered;
+  }
+
+  getStatistique() {
+    this.statistiqueService.getStatBenefice(this.token).subscribe(
+      (res: any) => {
+        console.log(res, 'res');
+
+        this.benefice = this.convertirDonneesEnPieData(res);
+        console.log(this.benefice, 'barDataMois');
+
+      },
+      (error: any) => {
+        console.error(
+          "Une erreur s'est produite lors de la récupération des catégories : ",
+          error
+        );
+      }
+    );
+  }
+
+  convertirDonneesEnPieData(donnees: any): any {
+    const labels = Object.keys(donnees);
+    const data = Object.values(donnees);
+    const backgroundColors = [
+      this.documentStyle.getPropertyValue('--indigo-500'),
+      this.documentStyle.getPropertyValue('--purple-500'),
+      this.documentStyle.getPropertyValue('--teal-500'),
+      this.documentStyle.getPropertyValue('--orange-500'),
+      this.documentStyle.getPropertyValue('--green-500'),
+      this.documentStyle.getPropertyValue('--red-500')
+    ];
+    const hoverBackgroundColors = [
+      this.documentStyle.getPropertyValue('--indigo-400'),
+      this.documentStyle.getPropertyValue('--purple-400'),
+      this.documentStyle.getPropertyValue('--teal-400'),
+      this.documentStyle.getPropertyValue('--orange-400'),
+      this.documentStyle.getPropertyValue('--green-400'),
+      this.documentStyle.getPropertyValue('--red-400')
+    ];
+
+    return {
+      labels: labels,
+      datasets: [
+        {
+          data: data,
+          backgroundColor: backgroundColors,
+          hoverBackgroundColor: hoverBackgroundColors
+        }
+      ]
+    };
   }
 
 }
