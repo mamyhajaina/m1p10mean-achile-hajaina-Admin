@@ -43,6 +43,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
 import { TimelineModule } from 'primeng/timeline';
 import { EmployeModule } from '../employe/employe.module';
+import { SkeletonModule } from 'primeng/skeleton';
+import { AjoutServiceComponent } from './components/ajout-service/ajout-service.component';
 
 @NgModule({
   imports: [
@@ -83,7 +85,8 @@ import { EmployeModule } from '../employe/employe.module';
     ToolbarModule,
     DialogModule,
     TimelineModule,
-    EmployeModule
+    EmployeModule,
+    SkeletonModule
   ],
   declarations: [
     ManagerComponent,
@@ -92,7 +95,8 @@ import { EmployeModule } from '../employe/employe.module';
     StatNombreReservationComponent,
     StatTempsMoyenTravailComponent,
     StatChifreAffaireComponent,
-    StatBeneficeComponent
+    StatBeneficeComponent,
+    AjoutServiceComponent
   ]
 })
 export class ManagerModule { }

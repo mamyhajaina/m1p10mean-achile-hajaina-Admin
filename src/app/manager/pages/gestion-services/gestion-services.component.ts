@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/employe/services/product.service';
 import { PersonnelService } from '../../services/personnel.service';
 import { environment } from 'src/environments/environment';
+import { MessageService } from 'primeng/api';
 
 interface expandedRows {
   [key: string]: boolean;
@@ -21,16 +22,23 @@ export class GestionServicesComponent implements OnInit {
   expandedRows: expandedRows = {};
   categories: any[] = [];
   environments: any;
+  skeleton: boolean = true;
+  ajoutServiceDialog: boolean = false;
+  idCategorie: string = '';
+  service: any = {};
+  services: any = [];
+  token: string = '';
 
   constructor(
     private productService: ProductService,
     private personnelService: PersonnelService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit() {
     this.environments = environment;
     this.productService.getProductsWithOrdersSmall().then(data => { this.products = data; console.log(this.products, 'products'); });
-
+    this.token = localStorage.getItem('token') || '';
 
     this.getAllCategories();
   }
@@ -49,12 +57,45 @@ export class GestionServicesComponent implements OnInit {
   }
 
   getAllCategories() {
+    this.skeleton = true;
     this.personnelService.getAllCategories().subscribe(
       (res: any) => {
+        this.skeleton = false;
         this.categories = res.categories;
         console.log('categories', res);
       },
       (error: any) => {
+        this.skeleton = false;
+        console.error(
+          "Une erreur s'est produite lors de la récupération des catégories : ",
+          error
+        );
+      }
+    );
+  }
+
+  showAjoutServicePopup(idCategorie: string) {
+    this.idCategorie = idCategorie;
+    this.ajoutServiceDialog = true;
+  }
+
+  hideAjoutServicePopup() {
+    this.ajoutServiceDialog = false;
+  }
+
+  ajoutService() {
+    this.service.id_Categorie = this.idCategorie;
+    this.service.image = [{ name: 'noImage.jpeg' }];
+    this.services.push(this.service);
+    console.log('services', this.services);
+    this.personnelService.creatService(this.services, this.token).subscribe(
+      (res: any) => {
+        console.log('creatService', res);
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Service ajoute', life: 3000 });
+        this.services = [];
+      },
+      (error: any) => {
+        this.skeleton = false;
         console.error(
           "Une erreur s'est produite lors de la récupération des catégories : ",
           error
