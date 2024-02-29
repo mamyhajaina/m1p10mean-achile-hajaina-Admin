@@ -3,7 +3,7 @@ import { ProductService } from 'src/app/employe/services/product.service';
 import { PersonnelService } from '../../services/personnel.service';
 import { environment } from 'src/environments/environment';
 import { MessageService } from 'primeng/api';
-
+import { io, Socket } from 'socket.io-client';
 interface expandedRows {
   [key: string]: boolean;
 }
@@ -32,7 +32,7 @@ export class GestionServicesComponent implements OnInit {
   idService: string = '';
   offreSpecialeModel: any = {};
   offreSpecialeModels: any = [];
-
+  socket!: Socket;
   constructor(
     private productService: ProductService,
     private personnelService: PersonnelService,
@@ -43,7 +43,7 @@ export class GestionServicesComponent implements OnInit {
     this.environments = environment;
     this.productService.getProductsWithOrdersSmall().then(data => { this.products = data; console.log(this.products, 'products'); });
     this.token = localStorage.getItem('token') || '';
-
+    this.socket = io(environment.BASE_URL);
     this.getAllCategories();
   }
 
@@ -139,6 +139,7 @@ export class GestionServicesComponent implements OnInit {
     this.personnelService.creatOffreSpeciale(this.offreSpecialeModels, this.token).subscribe(
       (res: any) => {
         console.log('creatOffreSpeciale', res);
+        this.socket.emit('newAddOffre');
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Offre ajoute', life: 3000 });
         this.offreSpecialeModel.dateFin = [];
         this.offreSpecial = false;
