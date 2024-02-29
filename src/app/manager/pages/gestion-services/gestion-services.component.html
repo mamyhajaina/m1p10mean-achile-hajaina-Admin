@@ -1,35 +1,4 @@
 <div class="grid p-fluid">
-  <div class="col-12 md:col-12">
-    <div class="card">
-      <h5>Nom Service*</h5>
-      <input type="text" pInputText placeholder="Default">
-
-      <h5>Description</h5>
-      <textarea rows="5" cols="30" placeholder="Your Message" pInputTextarea></textarea>
-
-      <h5>Categorie</h5>
-      <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="categories"
-        (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-      </p-autoComplete>
-
-      <h5>Prix*</h5>
-      <p-inputNumber mode="decimal" [showButtons]="true" [min]="0">
-      </p-inputNumber>
-
-      <h5>Dure en minute*</h5>
-      <p-inputNumber mode="decimal" [showButtons]="true" [min]="0">
-      </p-inputNumber>
-
-      <h5>Commission en %*</h5>
-      <p-inputNumber mode="decimal" [showButtons]="true" [min]="0">
-      </p-inputNumber>
-
-      <button style="width: 100%;" pbutton="" pripple="" label="Submit" icon="pi pi-bookmark"
-        class="p-element p-ripple p-button p-button-success p-component mt-4">
-        <span class="p-button-label">Valider</span>
-      </button>
-    </div>
-  </div>
 
   <div class="col-12">
     <div class="card">
@@ -42,6 +11,7 @@
             <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
             <th>Image</th>
             <th pSortableColumn="price">Description <p-sortIcon field="price"></p-sortIcon></th>
+            <th style="width: 4rem"></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-categorie let-expanded="expanded">
@@ -55,6 +25,8 @@
             <td><img src="{{environments.url_image}}categorie/{{ categorie.image[0].name }}" [alt]="categorie.name"
                 width="100" class="shadow-4" /></td>
             <td style="min-width: 8rem;">{{categorie.description}}</td>
+            <td style="min-width: 8rem;"><p-button (click)="showAjoutServicePopup(categorie._id)" type="button"
+                icon="pi pi-plus"></p-button></td>
           </tr>
         </ng-template>
         <ng-template pTemplate="rowexpansion" let-categorie>
@@ -68,7 +40,7 @@
             <th pSortableColumn="Dure">Dure <p-sortIcon field="Dure"></p-sortIcon></th>
             <th pSortableColumn="Prix">Prix <p-sortIcon field="Prix"></p-sortIcon></th>
             <th pSortableColumn="Commision">Commision <p-sortIcon field="Commision"></p-sortIcon></th>
-            <th style="width: 4rem"></th>
+            <!-- <th style="width: 4rem"></th> -->
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-service>
@@ -77,7 +49,7 @@
             <td>{{service.prix}}</td>
             <td>{{service.amount | currency:'USD'}}</td>
             <td>{{service.commision}}</td>
-            <td><p-button type="button" icon="pi pi-search"></p-button></td>
+            <!-- <td><p-button type="button" icon="pi pi-search"></p-button></td> -->
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
@@ -91,5 +63,58 @@
     </tr>
     </ng-template>
     </p-table>
+    <div class="border-round border-1 surface-border p-4" *ngIf="skeleton">
+      <div class="my-2">
+        <p-skeleton width="100%" height="4rem"></p-skeleton>
+      </div>
+      <div class="my-2">
+        <p-skeleton width="100%" height="4rem"></p-skeleton>
+      </div>
+      <div class="my-2">
+        <p-skeleton width="100%" height="4rem"></p-skeleton>
+      </div>
+      <div class="my-2">
+        <p-skeleton width="100%" height="4rem"></p-skeleton>
+      </div>
+      <div class="my-2">
+        <p-skeleton width="100%" height="4rem"></p-skeleton>
+      </div>
+      <div class="my-2">
+        <p-skeleton width="100%" height="4rem"></p-skeleton>
+      </div>
+      <div class="my-2">
+        <p-skeleton width="100%" height="4rem"></p-skeleton>
+      </div>
+    </div>
   </div>
 </div>
+
+<p-dialog [(visible)]="ajoutServiceDialog" header="Ajout Service" [modal]="true" [style]="{width:'90%'}">
+  <ng-template pTemplate="content">
+    <div class="col-12 md:col-12">
+      <h5>Nom Service*</h5>
+      <input type="text" pInputText placeholder="Default" [(ngModel)]="service.name">
+
+      <h5>Description</h5>
+      <textarea [(ngModel)]="service.description" rows="5" cols="30" placeholder="Your Message"
+        pInputTextarea></textarea>
+
+      <h5>Prix*</h5>
+      <p-inputNumber [(ngModel)]="service.prix" mode="decimal" [showButtons]="true" [min]="0">
+      </p-inputNumber>
+
+      <h5>Dure en minute*</h5>
+      <p-inputNumber [(ngModel)]="service.dure" mode="decimal" [showButtons]="true" [min]="0">
+      </p-inputNumber>
+
+      <h5>Commission en %*</h5>
+      <p-inputNumber [(ngModel)]="service.commision" mode="decimal" [showButtons]="true" [min]="0" [max]="100">
+      </p-inputNumber>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+      (click)="deleteProductsDialog = false"></button>
+    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="ajoutService()"></button>
+  </ng-template>
+</p-dialog>

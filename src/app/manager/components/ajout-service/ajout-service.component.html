@@ -1,0 +1,26 @@
+<div class="col-12 md:col-12">
+  <div class="card">
+    <h5>Nom Service*</h5>
+    <input type="text" pInputText placeholder="Default">
+
+    <h5>Description</h5>
+    <textarea rows="5" cols="30" placeholder="Your Message" pInputTextarea></textarea>
+
+    <h5>Prix*</h5>
+    <p-inputNumber mode="decimal" [showButtons]="true" [min]="0">
+    </p-inputNumber>
+
+    <h5>Dure en minute*</h5>
+    <p-inputNumber mode="decimal" [showButtons]="true" [min]="0">
+    </p-inputNumber>
+
+    <h5>Commission en %*</h5>
+    <p-inputNumber mode="decimal" [showButtons]="true" [min]="0">
+    </p-inputNumber>
+
+    <button style="width: 100%;" pbutton="" pripple="" label="Submit" icon="pi pi-bookmark"
+      class="p-element p-ripple p-button p-button-success p-component mt-4">
+      <span class="p-button-label">Valider</span>
+    </button>
+  </div>
+</div>
