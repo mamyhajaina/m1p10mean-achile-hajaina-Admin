@@ -23,7 +23,7 @@
             <td><img src="{{environments.url_image}}service/{{ product.Service.image[0].name }}" width="100"
                 class="shadow-4" />
             </td>
-            <td style="min-width: 8rem;">{{ product.Service.prix | currency:'USD'}}</td>
+            <td style="min-width: 8rem;">{{ product.Service.prix | currency:'MGA':'symbol-narrow':'1.0'}}</td>
             <td style="min-width: 10rem;">{{ product.dateTime | date:'dd/MM/yyyy HH:mm' }}</td>
             <td><span [class]="'product-badge status-lowstock'">{{ product.etat[0].name
                 }}</span>

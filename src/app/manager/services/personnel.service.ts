@@ -69,4 +69,19 @@ export class PersonnelService {
     );
   }
 
+  creatOffreSpeciale(body: any, token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+    console.log('body', body);
+
+    return this.http.post(
+      `${environment.BASE_URL}/offreSpeciale/create`,
+      body,
+      httpOptions
+    );
+  }
+
 }

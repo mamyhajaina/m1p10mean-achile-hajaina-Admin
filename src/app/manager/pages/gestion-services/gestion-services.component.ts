@@ -28,6 +28,10 @@ export class GestionServicesComponent implements OnInit {
   service: any = {};
   services: any = [];
   token: string = '';
+  offreSpecial: boolean = false;
+  idService: string = '';
+  offreSpecialeModel: any = {};
+  offreSpecialeModels: any = [];
 
   constructor(
     private productService: ProductService,
@@ -102,6 +106,52 @@ export class GestionServicesComponent implements OnInit {
         );
       }
     );
+  }
+
+  addOffreSpecial(idService: string) {
+    this.idService = idService;
+    this.offreSpecial = true;
+  }
+
+  envoyerOffreSpeciale() {
+    this.offreSpecialeModel.Service = this.idService;
+
+    var dateFormatee = this.offreSpecialeModel.dateDebut.getFullYear() + "-" +
+      ('0' + (this.offreSpecialeModel.dateDebut.getMonth() + 1)).slice(-2) + "-" +
+      ('0' + this.offreSpecialeModel.dateDebut.getDate()).slice(-2) + " " +
+      ('0' + this.offreSpecialeModel.dateDebut.getHours()).slice(-2) + ":" +
+      ('0' + this.offreSpecialeModel.dateDebut.getMinutes()).slice(-2) + ":" +
+      ('0' + this.offreSpecialeModel.dateDebut.getSeconds()).slice(-2) + "." +
+      ('00' + this.offreSpecialeModel.dateDebut.getMilliseconds()).slice(-3);
+    this.offreSpecialeModel.dateDebut = dateFormatee;
+
+    dateFormatee = this.offreSpecialeModel.dateFin.getFullYear() + "-" +
+      ('0' + (this.offreSpecialeModel.dateFin.getMonth() + 1)).slice(-2) + "-" +
+      ('0' + this.offreSpecialeModel.dateFin.getDate()).slice(-2) + " " +
+      ('0' + this.offreSpecialeModel.dateFin.getHours()).slice(-2) + ":" +
+      ('0' + this.offreSpecialeModel.dateFin.getMinutes()).slice(-2) + ":" +
+      ('0' + this.offreSpecialeModel.dateFin.getSeconds()).slice(-2) + "." +
+      ('00' + this.offreSpecialeModel.dateFin.getMilliseconds()).slice(-3);
+    this.offreSpecialeModel.dateFin = dateFormatee;
+    this.offreSpecialeModels.push(this.offreSpecialeModel);
+    console.log('offreSpecialeModels', this.offreSpecialeModels);
+
+    this.personnelService.creatOffreSpeciale(this.offreSpecialeModels, this.token).subscribe(
+      (res: any) => {
+        console.log('creatOffreSpeciale', res);
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Offre ajoute', life: 3000 });
+        this.offreSpecialeModel.dateFin = [];
+        this.offreSpecial = false;
+      },
+      (error: any) => {
+        this.skeleton = false;
+        console.error(
+          "Une erreur s'est produite lors de la récupération des catégories : ",
+          error
+        );
+      }
+    );
+
   }
 
 }
