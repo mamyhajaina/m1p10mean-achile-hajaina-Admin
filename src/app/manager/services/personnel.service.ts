@@ -1,13 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class PersonnelService {
+export class PersonnelService implements OnInit {
 
   constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+  }
 
   getAllEmploye(token: string): any {
     const httpOptions = {
