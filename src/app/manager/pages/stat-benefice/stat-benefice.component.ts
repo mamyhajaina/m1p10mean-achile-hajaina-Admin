@@ -16,6 +16,7 @@ export class StatBeneficeComponent implements OnInit {
   barOptions: any;
   documentStyle = getComputedStyle(document.documentElement);
   token: string = '';
+  skeleton: boolean = true;
 
   constructor(
     private statistiqueService: StatistiquesService
@@ -40,15 +41,17 @@ export class StatBeneficeComponent implements OnInit {
   }
 
   getStatistique() {
+    this.skeleton = true;
     this.statistiqueService.getStatBenefice(this.token).subscribe(
       (res: any) => {
         console.log(res, 'res');
-
+        this.skeleton = false;
         this.benefice = this.convertirDonneesEnPieData(res);
         console.log(this.benefice, 'barDataMois');
 
       },
       (error: any) => {
+        this.skeleton = false;
         console.error(
           "Une erreur s'est produite lors de la récupération des catégories : ",
           error

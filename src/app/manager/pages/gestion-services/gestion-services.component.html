@@ -40,16 +40,17 @@
             <th pSortableColumn="Dure">Dure <p-sortIcon field="Dure"></p-sortIcon></th>
             <th pSortableColumn="Prix">Prix <p-sortIcon field="Prix"></p-sortIcon></th>
             <th pSortableColumn="Commision">Commision <p-sortIcon field="Commision"></p-sortIcon></th>
-            <!-- <th style="width: 4rem"></th> -->
+            <th style="width: 4rem">Offre speciale</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-service>
           <tr>
             <td>{{service.name}}</td>
-            <td>{{service.prix}}</td>
-            <td>{{service.amount | currency:'USD'}}</td>
+            <td>{{service.dure}}</td>
+            <td>{{service.prix | currency:'MGA':'symbol-narrow':'1.0'}}</td>
             <td>{{service.commision}}</td>
-            <!-- <td><p-button type="button" icon="pi pi-search"></p-button></td> -->
+            <td><p-button icon="pi pi-plus" [rounded]="true" [text]="true" severity="success "
+                (click)="addOffreSpecial(service._id)"></p-button></td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
@@ -116,5 +117,48 @@
     <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
       (click)="deleteProductsDialog = false"></button>
     <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="ajoutService()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="Ajoouter Offre Speciale" [(visible)]="offreSpecial" [modal]="true"
+  [style]="{ width: '50vw', height: '70vw', }" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="content">
+    <div class="col-12 md:col-12">
+      <h5>Date debut*</h5>
+      <p-calendar [showIcon]="true" inputId="icon" [showTime]="true" [(ngModel)]="offreSpecialeModel.dateDebut">
+        <ng-template pTemplate="date" let-date>
+          <span
+            [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">{{date.day}}</span>
+        </ng-template>
+      </p-calendar>
+
+      <h5>Date fin*</h5>
+      <p-calendar [showIcon]="true" inputId="icon" [showTime]="true" [(ngModel)]="offreSpecialeModel.dateFin">
+        <ng-template pTemplate="date" let-date>
+          <span
+            [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">{{date.day}}</span>
+        </ng-template>
+      </p-calendar>
+
+      <h5>Pourcentage en %*</h5>
+      <p-inputNumber mode="decimal" [showButtons]="true" [min]="0" [max]="100"
+        [(ngModel)]="offreSpecialeModel.pourcentage">
+      </p-inputNumber>
+
+      <h5>Titre</h5>
+      <span class="p-float-label">
+        <input [(ngModel)]="offreSpecialeModel.titre" id="float-input" type="text" pInputText>
+        <label for="float-input">Titre</label>
+      </span>
+
+      <h5>Description</h5>
+      <textarea [(ngModel)]="offreSpecialeModel.description" rows="5" cols="30" placeholder="Description"
+        pInputTextarea></textarea>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="offreSpecial = false"></button>
+    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+      (click)="envoyerOffreSpeciale()"></button>
   </ng-template>
 </p-dialog>

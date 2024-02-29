@@ -1,15 +1,25 @@
 <div class="grid p-fluid">
   <div class="col-12 lg:col-6">
     <div class="card">
-      <h5>Nombre de réservation par jour</h5>
-      <p-chart type="bar" [data]="barDataJour" [options]="barOptionsJour"></p-chart>
+      <div *ngIf="!skeletonJour">
+        <h5>Nombre de réservation par jour</h5>
+        <p-chart type="bar" [data]="barDataJour" [options]="barOptionsJour"></p-chart>
+      </div>
+      <div *ngIf="skeletonJour">
+        <app-skeleton-statistique header="Chiffre affaire par jour"></app-skeleton-statistique>
+      </div>
     </div>
   </div>
 
   <div class="col-12 lg:col-6">
     <div class="card">
-      <h5>Nombre de réservation par mois</h5>
-      <p-chart type="bar" [data]="barDataMois" [options]="barOptionsMois"></p-chart>
+      <div *ngIf="!skeletonMois">
+        <h5>Nombre de réservation par mois</h5>
+        <p-chart type="bar" [data]="barDataMois" [options]="barOptionsMois"></p-chart>
+      </div>
+      <div *ngIf="skeletonMois">
+        <app-skeleton-statistique header="Chiffre affaire par mois"></app-skeleton-statistique>
+      </div>
     </div>
   </div>
 </div>

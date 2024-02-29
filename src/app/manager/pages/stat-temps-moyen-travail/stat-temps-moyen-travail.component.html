@@ -1,6 +1,15 @@
-<div class="col-12 lg:col-12">
-  <div class="card">
-    <h5>Temps moyen de travail</h5>
-    <p-chart type="bar" [data]="tempsMoyenTravail" [options]="barOptions"></p-chart>
+<div class="grid p-fluid">
+  <div class="col-12 lg:col-2"></div>
+  <div class="col-12 lg:col-8">
+    <div class="card">
+      <div *ngIf="!skeleton">
+        <h5>Temps moyen de travail</h5>
+        <p-chart type="bar" [data]="tempsMoyenTravail" [options]="barOptions">
+        </p-chart>
+      </div>
+      <div *ngIf="skeleton">
+        <app-skeleton-statistique header="Temps moyen de travail"></app-skeleton-statistique>
+      </div>
+    </div>
   </div>
 </div>

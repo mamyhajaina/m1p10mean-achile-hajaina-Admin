@@ -46,12 +46,11 @@ export class GestionPersonnelComponent implements OnInit {
   salaire: any = 0;
   nameDebaucher: string = '';
   emploisDebauche: any = [];
+  skeleton: boolean = false;
 
   constructor(
-    private productService: ProductService,
     private messageService: MessageService,
     private personnelService: PersonnelService,
-    private countryService: CountryService
   ) {
     this.defaultDate = new Date();
   }
@@ -59,11 +58,6 @@ export class GestionPersonnelComponent implements OnInit {
   ngOnInit() {
     this.token = localStorage.getItem('token') || '';
     this.environments = environment;
-    this.countryService.getCountries().then(countries => {
-      this.categories = countries;
-      console.log(this.categories, 'getCountries');
-
-    });
 
     this.cols = [
       { field: 'product', header: 'Product' },
@@ -161,12 +155,15 @@ export class GestionPersonnelComponent implements OnInit {
   }
 
   getAllEmploye() {
+    this.skeleton = true;
     this.personnelService.getAllEmploye(this.token).subscribe(
       (res: any) => {
         this.personnels = res;
+        this.skeleton = false;
         console.log('personnel', this.personnels);
       },
       (error: any) => {
+        this.skeleton = false;
         console.error(
           "Une erreur s'est produite lors de la récupération des catégories : ",
           error
