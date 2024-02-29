@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StatistiquesService } from '../../services/statistiques.service';
 
 @Component({
   selector: 'app-stat-chifre-affaire',
@@ -7,42 +8,107 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatChifreAffaireComponent implements OnInit {
 
-  barDataJourMois: any;
+  barDataJour: any;
+  barDataMois: any;
   barOptionsJour: any;
   barOptionsMois: any;
   token: string = '';
   statistique: any = [];
+  documentStyle = getComputedStyle(document.documentElement);
 
-  constructor() { }
+  constructor(
+    private statistiqueService: StatistiquesService
+  ) { }
 
   ngOnInit() {
     this.token = localStorage.getItem('token') || '';
-    const documentStyle = getComputedStyle(document.documentElement);
-    const getCurrentMonthDays = () => {
-      const currentDate = new Date();
-      const currentMonth = currentDate.getMonth() + 1; // Note: getMonth() returns 0-based index
-      const currentYear = currentDate.getFullYear();
-      const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate();
-      const monthName = currentDate.toLocaleDateString('en-US', { month: 'long' }); // Récupérer le nom du mois
+    this.getStatistiqueMois();
+    this.getStatistiqueJour();
+  }
 
-      const days = [];
-      for (let day = 1; day <= lastDayOfMonth; day++) {
-        days.push(`${monthName} ${day}`);
+  getStatistiqueMois() {
+    this.statistiqueService.getStatChiffreAffaireMois(this.token).subscribe(
+      (res: any) => {
+        console.log(res, 'res');
+
+        this.barDataMois = this.convertirDonneesEnBarDataMois(res);
+        console.log(this.barDataMois, 'barDataMois');
+
+      },
+      (error: any) => {
+        console.error(
+          "Une erreur s'est produite lors de la récupération des catégories : ",
+          error
+        );
       }
+    );
+  }
 
-      return days;
-    };
+  getStatistiqueJour() {
+    this.statistiqueService.getStatChiffreAffaireJour(this.token).subscribe(
+      (res: any) => {
+        console.log(res, 'res');
 
-    this.barDataJourMois = {
-      labels: getCurrentMonthDays(),
+        this.barDataJour = this.convertirDonneesEnBarDataJour(res);
+        console.log(this.barDataJour, 'barDataJour');
+
+      },
+      (error: any) => {
+        console.error(
+          "Une erreur s'est produite lors de la récupération des catégories : ",
+          error
+        );
+      }
+    );
+  }
+
+  convertirDonneesEnBarDataMois(donnees: any[]): any {
+    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    const data = new Array(labels.length).fill(0);
+
+    donnees.forEach(entry => {
+      const index = entry.month - 1;
+      data[index] = entry.totalAmount;
+    });
+
+    return {
+      labels: labels,
       datasets: [
         {
-          label: 'Chiffre Affaire',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          backgroundColor: documentStyle.getPropertyValue('--primary-500'),
-          borderColor: documentStyle.getPropertyValue('--primary-500'),
-          tension: .4
+          label: 'Counts par mois',
+          backgroundColor: this.documentStyle.getPropertyValue('--primary-500'),
+          borderColor: this.documentStyle.getPropertyValue('--primary-500'),
+          data: data
+        }
+      ]
+    };
+  }
+
+  convertirDonneesEnBarDataJour(donnees: any[]): any {
+    const groupedData: { [key: string]: number } = {};
+
+    donnees.forEach(entry => {
+      const date = new Date(entry._id);
+      const dayKey = date.toISOString().split('T')[0]; // Utilisation de la date au format YYYY-MM-DD comme clé
+
+      if (!groupedData[dayKey]) {
+        groupedData[dayKey] = 0;
+      }
+
+      groupedData[dayKey] += entry.totalAmount;
+    });
+
+    const labels = Object.keys(groupedData).sort();
+    const data = labels.map(key => groupedData[key]);
+
+    return {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Counts par jour',
+          backgroundColor: this.documentStyle.getPropertyValue('--primary-200'),
+          borderColor: this.documentStyle.getPropertyValue('--primary-200'),
+          data: data
         }
       ]
     };

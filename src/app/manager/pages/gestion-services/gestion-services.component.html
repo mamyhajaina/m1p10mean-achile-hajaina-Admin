@@ -8,7 +8,7 @@
       <textarea rows="5" cols="30" placeholder="Your Message" pInputTextarea></textarea>
 
       <h5>Categorie</h5>
-      <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries"
+      <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="categories"
         (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
       </p-autoComplete>
 
@@ -35,59 +35,48 @@
     <div class="card">
       <h5>Liste Service avec categorie</h5>
       <p-toast></p-toast>
-      <p-table [value]="products" dataKey="name" [expandedRowKeys]="expandedRows" responsiveLayout="scroll">
+      <p-table [value]="categories" dataKey="name" [expandedRowKeys]="expandedRows" responsiveLayout="scroll">
         <ng-template pTemplate="header">
           <tr>
             <th style="width: 3rem"></th>
             <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
             <th>Image</th>
-            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-            <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+            <th pSortableColumn="price">Description <p-sortIcon field="price"></p-sortIcon></th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product let-expanded="expanded">
+        <ng-template pTemplate="body" let-categorie let-expanded="expanded">
           <tr>
             <td>
-              <button type="button" pButton pRipple [pRowToggler]="product"
+              <button type="button" pButton pRipple [pRowToggler]="categorie"
                 class="p-button-text p-button-rounded p-button-plain"
                 [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
             </td>
-            <td style="min-width: 12rem;">{{product.name}}</td>
-            <td><img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100"
-                class="shadow-4" /></td>
-            <td style="min-width: 8rem;">{{product.price | currency:'USD'}}</td>
-            <td style="min-width: 10rem;">{{product.category}}</td>
-            <td style="min-width: 10rem;"><p-rating [ngModel]="product.rating" [readonly]="true"
-                [cancel]="false"></p-rating></td>
-            <td><span
-                [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
-            </td>
+            <td style="min-width: 12rem;">{{categorie.name}}</td>
+            <td><img src="{{environments.url_image}}categorie/{{ categorie.image[0].name }}" [alt]="categorie.name"
+                width="100" class="shadow-4" /></td>
+            <td style="min-width: 8rem;">{{categorie.description}}</td>
           </tr>
         </ng-template>
-        <ng-template pTemplate="rowexpansion" let-product>
+        <ng-template pTemplate="rowexpansion" let-categorie>
           <tr>
             <td colspan="7">
               <div class="p-3">
-                <p-table [value]="product.orders" dataKey="id" responsiveLayout="scroll">
+                <p-table [value]="categorie.service" dataKey="_id" responsiveLayout="scroll">
                   <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
-            <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
-            <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
-            <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
-            <th pSortableColumn="stats">Status <p-sortIcon field="status"></p-sortIcon></th>
+            <th pSortableColumn="Nom">Nom <p-sortIcon field="Nom"></p-sortIcon></th>
+            <th pSortableColumn="Dure">Dure <p-sortIcon field="Dure"></p-sortIcon></th>
+            <th pSortableColumn="Prix">Prix <p-sortIcon field="Prix"></p-sortIcon></th>
+            <th pSortableColumn="Commision">Commision <p-sortIcon field="Commision"></p-sortIcon></th>
             <th style="width: 4rem"></th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-order>
+        <ng-template pTemplate="body" let-service>
           <tr>
-            <td>{{order.id}}</td>
-            <td>{{order.customer}}</td>
-            <td>{{order.date}}</td>
-            <td>{{order.amount | currency:'USD'}}</td>
-            <td><span [class]="'order-badge order-' + order.status.toLowerCase()">{{order.status}}</span></td>
+            <td>{{service.name}}</td>
+            <td>{{service.prix}}</td>
+            <td>{{service.amount | currency:'USD'}}</td>
+            <td>{{service.commision}}</td>
             <td><p-button type="button" icon="pi pi-search"></p-button></td>
           </tr>
         </ng-template>

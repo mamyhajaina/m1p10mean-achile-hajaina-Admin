@@ -12,6 +12,7 @@ export class HoraireTravailComponent implements OnInit {
   @Input() idEmploye: string = '';
   horaireTravail: any[] = [];
   token: string = '';
+  skeleton: boolean = true;
 
   constructor(
     private profilHoraireTravailService: ProfileHoraireTravailService,
@@ -25,12 +26,15 @@ export class HoraireTravailComponent implements OnInit {
   }
 
   getHoraireTravail() {
+    this.skeleton = true;
     this.profilHoraireTravailService.getHoraireTravail(this.idEmploye, this.token).subscribe(
       (res: any) => {
         this.horaireTravail = this.transformToJson(res);
+        this.skeleton = false;
         // this.profile.solde = res;
       },
       (error: any) => {
+        this.skeleton = false;
         console.error(
           "Une erreur s'est produite lors de la récupération des catégories : ",
           error

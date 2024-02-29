@@ -21,4 +21,64 @@ export class StatistiquesService {
     );
   }
 
+  getStatNombreReservationMois(token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+    return this.http.get(
+      `${environment.BASE_URL}/rendezVous/statRendezVousMensuel`,
+      httpOptions
+    );
+  }
+
+  getStatNombreReservationJour(token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+    return this.http.get(
+      `${environment.BASE_URL}/rendezVous/statRendezVousJournalier`,
+      httpOptions
+    );
+  }
+
+  getStatChiffreAffaireJour(token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+    return this.http.get(
+      `${environment.BASE_URL}/rendezVous/statCAjournalier`,
+      httpOptions
+    );
+  }
+
+  getStatChiffreAffaireMois(token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+    return this.http.get(
+      `${environment.BASE_URL}/rendezVous/statCAmensuel`,
+      httpOptions
+    );
+  }
+
+  getStatBenefice(token: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })
+    };
+    return this.http.get(
+      `${environment.BASE_URL}/rendezVous/statBenefice`,
+      httpOptions
+    );
+  }
+
 }

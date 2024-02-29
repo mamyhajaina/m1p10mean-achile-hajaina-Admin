@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/employe/services/product.service';
+import { PersonnelService } from '../../services/personnel.service';
+import { environment } from 'src/environments/environment';
 
 interface expandedRows {
   [key: string]: boolean;
@@ -17,13 +19,20 @@ export class GestionServicesComponent implements OnInit {
   countries: any[] = [];
   products: any[] = [];
   expandedRows: expandedRows = {};
+  categories: any[] = [];
+  environments: any;
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private personnelService: PersonnelService,
   ) { }
 
   ngOnInit() {
-    this.productService.getProductsWithOrdersSmall().then(data => this.products = data);
+    this.environments = environment;
+    this.productService.getProductsWithOrdersSmall().then(data => { this.products = data; console.log(this.products, 'products'); });
+
+
+    this.getAllCategories();
   }
 
   filterCountry(event: any) {
@@ -37,6 +46,21 @@ export class GestionServicesComponent implements OnInit {
     }
 
     this.filteredCountries = filtered;
+  }
+
+  getAllCategories() {
+    this.personnelService.getAllCategories().subscribe(
+      (res: any) => {
+        this.categories = res.categories;
+        console.log('categories', res);
+      },
+      (error: any) => {
+        console.error(
+          "Une erreur s'est produite lors de la récupération des catégories : ",
+          error
+        );
+      }
+    );
   }
 
 }
