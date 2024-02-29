@@ -13,6 +13,7 @@ export class StatTempsMoyenTravailComponent implements OnInit {
   token: string = '';
   statistique: any = [];
   documentStyle = getComputedStyle(document.documentElement);
+  skeleton: boolean = true;
 
   constructor(
     private statistiqueService: StatistiquesService
@@ -22,30 +23,20 @@ export class StatTempsMoyenTravailComponent implements OnInit {
     this.token = localStorage.getItem('token') || '';
     const documentStyle = getComputedStyle(document.documentElement);
 
-    this.tempsMoyenTravail = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'Temps moyen de travail',
-          backgroundColor: documentStyle.getPropertyValue('--primary-500'),
-          borderColor: documentStyle.getPropertyValue('--primary-500'),
-          data: [65, 59, 80, 81, 56, 55, 40]
-        }
-      ]
-    };
-
     this.getStatistique();
   }
 
 
   getStatistique() {
+    this.skeleton = true;
     this.statistiqueService.getStatHoraireEmploye(this.token).subscribe(
       (res: any) => {
         this.tempsMoyenTravail = this.convertirDonneesEnHorizontalBarData(res);
         console.log(this.tempsMoyenTravail, 'tempsMoyenTravail');
-
+        this.skeleton = false;
       },
       (error: any) => {
+        this.skeleton = false;
         console.error(
           "Une erreur s'est produite lors de la récupération des catégories : ",
           error

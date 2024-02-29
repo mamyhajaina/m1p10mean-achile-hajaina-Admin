@@ -15,6 +15,9 @@ export class StatNombreReservationComponent implements OnInit {
   token: string = '';
   statistique: any = [];
   documentStyle = getComputedStyle(document.documentElement);
+  skeletonJour: boolean = true;
+  skeletonMois: boolean = true;
+
   constructor(
     private statistiqueService: StatistiquesService
   ) { }
@@ -26,15 +29,17 @@ export class StatNombreReservationComponent implements OnInit {
   }
 
   getStatistiqueMois() {
+    this.skeletonMois = true;
     this.statistiqueService.getStatNombreReservationMois(this.token).subscribe(
       (res: any) => {
         console.log(res, 'res');
-
+        this.skeletonMois = false;
         this.barDataMois = this.convertirDonneesEnBarDataMois(res);
         console.log(this.barDataMois, 'barDataMois');
 
       },
       (error: any) => {
+        this.skeletonMois = false;
         console.error(
           "Une erreur s'est produite lors de la récupération des catégories : ",
           error
@@ -44,15 +49,17 @@ export class StatNombreReservationComponent implements OnInit {
   }
 
   getStatistiqueJour() {
+    this.skeletonJour = true;
     this.statistiqueService.getStatNombreReservationJour(this.token).subscribe(
       (res: any) => {
         console.log(res, 'res');
-
+        this.skeletonJour = false;
         this.barDataJour = this.convertirDonneesEnBarDataJour(res);
         console.log(this.barDataMois, 'barDataMois');
 
       },
       (error: any) => {
+        this.skeletonJour = false;
         console.error(
           "Une erreur s'est produite lors de la récupération des catégories : ",
           error

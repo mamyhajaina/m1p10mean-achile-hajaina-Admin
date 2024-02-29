@@ -16,8 +16,13 @@
       </div>
       <div class="col-12 md:col-12">
         <div class="card">
-          <h5>Bénéfice par mois</h5>
-          <p-chart type="polarArea" [data]="benefice" [options]="barOptions"></p-chart>
+          <div *ngIf="!skeleton">
+            <h5>Bénéfice par mois</h5>
+            <p-chart type="polarArea" [data]="benefice" [options]="barOptions"></p-chart>
+          </div>
+          <div *ngIf="skeleton">
+            <p-skeleton shape="circle" size="30rem" styleClass="ml-5"></p-skeleton>
+          </div>
         </div>
       </div>
     </div>

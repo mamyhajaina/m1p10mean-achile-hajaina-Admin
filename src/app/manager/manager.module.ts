@@ -1,3 +1,4 @@
+import { SkeletonStatistiqueComponent } from './components/skeleton-statistique/skeleton-statistique.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ManagerComponent } from './manager.component';
@@ -45,6 +46,7 @@ import { TimelineModule } from 'primeng/timeline';
 import { EmployeModule } from '../employe/employe.module';
 import { SkeletonModule } from 'primeng/skeleton';
 import { AjoutServiceComponent } from './components/ajout-service/ajout-service.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   imports: [
@@ -86,7 +88,8 @@ import { AjoutServiceComponent } from './components/ajout-service/ajout-service.
     DialogModule,
     TimelineModule,
     EmployeModule,
-    SkeletonModule
+    SkeletonModule,
+    NgxSpinnerModule
   ],
   declarations: [
     ManagerComponent,
@@ -96,7 +99,8 @@ import { AjoutServiceComponent } from './components/ajout-service/ajout-service.
     StatTempsMoyenTravailComponent,
     StatChifreAffaireComponent,
     StatBeneficeComponent,
-    AjoutServiceComponent
+    AjoutServiceComponent,
+    SkeletonStatistiqueComponent
   ]
 })
 export class ManagerModule { }
